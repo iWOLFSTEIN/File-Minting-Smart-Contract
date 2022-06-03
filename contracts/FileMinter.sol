@@ -7,22 +7,22 @@ contract FileMinter{
 
     struct FileMetaData{
         address ownerWalletAddress;
-        string fileName;
         bool isExist;
     }
 
 mapping(bytes32 => FileMetaData) records;
 mapping(address => bytes32[]) users;
 
-event mintSuccessful(address walletAddress,bytes32 fileHash, string fileName);
+event mintSuccessful(address walletAddress,bytes32 fileHash);
 
-function mintFile(address walletAddress, bytes32 fileHash, string memory fileName) public{
+function mintFile(address walletAddress, string memory fileHashString) public{
+    bytes32 fileHash = bytes32(bytes(fileHashString));
     if (records[fileHash].isExist){
          revert('File Already Minted to Someone');
     }
 
 
-    records[fileHash] = FileMetaData(walletAddress,fileName, true);
+    records[fileHash] = FileMetaData(walletAddress, true);
 
     bytes32 [] storage allMintedFiles  =  users[walletAddress];
     allMintedFiles.push(fileHash);
@@ -30,17 +30,16 @@ function mintFile(address walletAddress, bytes32 fileHash, string memory fileNam
     users[walletAddress] = allMintedFiles;
     
 
-    emit mintSuccessful(walletAddress, fileHash, fileName);
+    emit mintSuccessful(walletAddress, fileHash);
 }
 
 function myMintFiles(address walletAddress) public view returns(bytes32[] memory){
-
+        
     bytes32 [] storage allMintedFiles = users[walletAddress];
 
     return allMintedFiles;
 
 }
-
 
 }
 
