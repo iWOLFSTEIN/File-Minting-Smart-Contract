@@ -15,8 +15,8 @@ mapping(address => bytes32[]) users;
 
 event mintSuccessful(address walletAddress,bytes32 fileHash);
 
-function mintFile(address walletAddress, string memory fileHashString) public{
-    bytes32 fileHash = bytes32(bytes(fileHashString));
+function mintFile(address walletAddress, bytes32 fileHash) public{
+
     if (records[fileHash].isExist){
          revert('File Already Minted to Someone');
     }
@@ -39,6 +39,10 @@ function myMintFiles(address walletAddress) public view returns(bytes32[] memory
 
     return allMintedFiles;
 
+}
+
+function isConnectionExtablished() public pure returns(bool){
+    return true;
 }
 
 }

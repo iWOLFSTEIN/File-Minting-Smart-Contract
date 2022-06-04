@@ -6,7 +6,7 @@ const sjcl = require('sjcl');
 
 const myString = 'Hello'
 const myBitArray = sjcl.hash.sha256.hash(myString)
-const myHash = sjcl.codec.hex.fromBits(myBitArray)
+const myHash = '0x'+sjcl.codec.hex.fromBits(myBitArray)
 
 describe("File Minter", function () {
   it("Deployment should mint the file hash to the wallet address", async function () {
@@ -15,16 +15,16 @@ describe("File Minter", function () {
     const FileMinter = await ethers.getContractFactory("FileMinter");
 
     const hardhatFileMinter = await FileMinter.deploy();
-
+    
+    console.log('file hash is');
+    console.log(myHash);
     await hardhatFileMinter.mintFile(owner.address, myHash);
-    // await hardhatFileMinter.mintFile(owner.address, myHash);
-    // await hardhatFileMinter.mintFile(owner.address, inBytes2, 'file2');
+ 
 
-  const arrayOfHashes = await hardhatFileMinter.myMintFiles(owner.address);
-  for(var i = 0; i< arrayOfHashes.length; i++){
+    const arrayOfHashes = await hardhatFileMinter.myMintFiles(owner.address);
+    for(var i = 0; i< arrayOfHashes.length; i++){
+      console.log('file hash after minting is');
     console.log(arrayOfHashes[i]);
   }
-    // expect(await hardhatFileMinter.records[myHash].isExist).to.equal(true);
-    this.timeout(0);
   });
 });
