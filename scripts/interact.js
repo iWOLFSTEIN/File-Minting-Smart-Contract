@@ -18,8 +18,9 @@ const signer = new ethers.Wallet(PRIVATE_KEY, alchemyProvider);
 const fileMinterContract = new ethers.Contract(CONTRACT_ADDRESS, contract.abi, signer);
 
 async function main() {
-
-    const fileHashCode = "0x185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381961";
+    
+  // use your own unique hash code
+    const fileHashCode = "0x185f8db32271fe25f561a6fc938b2e264306ec304eda508007d1764826381961";
     console.log('file hash is');
     console.log(fileHashCode);
 
