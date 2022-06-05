@@ -1,5 +1,7 @@
 # File-Minting-Smart-Contract
 
+## This contract takes sha256 hash code of any file and mints it against your wallet address
+
 - To interact with contract using interact.js file in /scripts/ use the following steps
 - 
 - 
